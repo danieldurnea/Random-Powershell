@@ -4,7 +4,7 @@
 
 #CS IP Links https://www.dell.com/support/kbdoc/en-lv/000177899/crowdstrike-falcon-sensor-system-requirements
 #CS IP Links https://github.com/simonsigre/crowdstrike_falcon-ipaddresses/blob/master/cs_falcon_commercial_cloud
-
+# This is not illegal, I just read this: https://www.justice.gov/jm/jm-9-48000-computer-fraud, however some of my license key scripts to artificially extend/create keys will have to remain private. Sorry m8s
 $target_URLs = @("ts01-gyr-maverick.cloudsink.net", "ts01-b.cloudsink.net", "lfodown01-gyr-maverick.cloudsink.net", "lfodown01-b.cloudsink.net")
 $Regex_Lookups = @()#Fill this in with sites you want to block.
 $IPs =@() #fill this with IPs you know you want to block.
