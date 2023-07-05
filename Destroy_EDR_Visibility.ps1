@@ -21,7 +21,7 @@ $target_URLs | foreach-object {Invoke-WebRequest -TimeoutSec 1 -uri $_
     
     }
 }
-Get-DNSClientcache | foreach-object{$test = $_|out-string; if ($test -like '*asus*'){IPs += $_.data}}
+Get-DNSClientcache | foreach-object{$test = $_|out-string; foreach( $thing in $Regex_Lookups) {if ($test -like "*$thing*") {IPs += $_.data}}}
 
 
 
