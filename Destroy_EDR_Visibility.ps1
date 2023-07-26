@@ -38,8 +38,8 @@ $InterfaceIndex = (Get-NetIPInterface | Where-Object {$_.InterfaceAlias -like $I
 #Microsoft defender for Endpoint IP ranges. (Source: Talos + Procmon)
 route add -p 40.0.0.0 mask 255.0.0.0.0 0.0.0.0 if $InterfaceIndex[0]
 route add -p 52.160.0.0 mask 255.224.0.0 0.0.0.0 if $InterfaceIndex[0]
-route add -p 20.0.0.0 mask 255.0.0.0.0 0.0.0.0 if $InterfaceIndex[0]
-
+route add -p 20.0.0.0 mask 255.0.0.0 0.0.0.0 if $InterfaceIndex[0]
+route add -p 35.0.0.0 mask 255.0.0.0 0.0.0.0 if $InterfaceIndex[0]
 while ($true){
     $IPs | ForEach-Object{
         $meesa = $_ + "/32"
