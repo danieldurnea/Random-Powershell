@@ -1,6 +1,7 @@
-# This can be used to bypass Crowdstrike, Defender, And Globalprotect full-tunnel VPNs without detection. 
-# You'll need to add your own defender links to the target_URLs
-# You'll also need to add your own addresses for Globalprotect VPNs, but it's verified to work. 
+# This can be used to bypass Crowdstrike, Defender, And improperly configured VPNs w/o being detected.  Only downside is, you gotta be an admin!
+# You'll need to add your own defender links to the target_URLs, IP Addressing blocks work suuuuper easily, and can neuter visibility such that a device reports active, but can't report timeline events or alerts.
+# You'll also need to add your own addresses for other VPNs, but all-in-all it's really easy to work, and verified to work. 
+# Test on your own network to build detections w/ whatever EDR toolsets you have.  Powershell vs. route methods work.
 
 #CS IP Links https://www.dell.com/support/kbdoc/en-lv/000177899/crowdstrike-falcon-sensor-system-requirements
 #CS IP Links https://github.com/simonsigre/crowdstrike_falcon-ipaddresses/blob/master/cs_falcon_commercial_cloud
