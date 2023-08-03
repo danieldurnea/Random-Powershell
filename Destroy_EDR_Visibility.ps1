@@ -11,6 +11,7 @@
 $target_URLs = @("ts01-gyr-maverick.cloudsink.net", "ts01-b.cloudsink.net", "lfodown01-gyr-maverick.cloudsink.net", "lfodown01-b.cloudsink.net")
 $Regex_Lookups = @()#Fill this in with sites you want to block.
 $IPs =@() #fill this with IPs you know you want to block.
+$Iface_n = 'Fill This with the name of the interface you want to push your RFC1918 traffic to'
 
 
 $target_URLs | foreach-object {Invoke-WebRequest -TimeoutSec 1 -uri $_
@@ -34,17 +35,22 @@ $InterfaceAlias = "*Loopback*"
 route /f
 # Get the loopback interface index
 $InterfaceIndex = (Get-NetIPInterface | Where-Object {$_.InterfaceAlias -like $InterfaceAlias}).InterfaceIndex
+$PanIndex = (Get-NetIPInterface | Where-Object {$_.InterfaceAlias -like $Iface_n}).InterfaceIndex
+
+route add -p 10.0.0.0 mask 255.0.0.0 0.0.0.0 if $PanIndex[0]
+route add -p 172.16.0.0 mask 255.240.0.0 0.0.0.0 if $PanIndex[0]
+route add -p 192.168.0.0 mask 255.255.0.0 0.0.0.0 if $PanIndex[0]
 
 #Microsoft defender for Endpoint IP ranges. (Source: Talos + Procmon)
 route add -p 40.0.0.0 mask 255.0.0.0.0 0.0.0.0 if $InterfaceIndex[0]
 route add -p 52.160.0.0 mask 255.224.0.0 0.0.0.0 if $InterfaceIndex[0]
 route add -p 20.0.0.0 mask 255.0.0.0 0.0.0.0 if $InterfaceIndex[0]
 route add -p 35.0.0.0 mask 255.0.0.0 0.0.0.0 if $InterfaceIndex[0]
-while ($true){
-    $IPs | ForEach-Object{
+
+$IPs | ForEach-Object{
         $meesa = $_ + "/32"
         $meesa
         route add -p $_ mask 255.255.255.255 0.0.0.0 if $InterfaceIndex[0]
-     }
-            
 }
+            
+
