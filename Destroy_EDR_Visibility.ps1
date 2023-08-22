@@ -40,7 +40,7 @@ $PanIndex = (Get-NetIPInterface | Where-Object {$_.InterfaceAlias -like $Iface_n
 route add -p 10.0.0.0 mask 255.0.0.0 0.0.0.0 if $PanIndex[0]
 route add -p 172.16.0.0 mask 255.240.0.0 0.0.0.0 if $PanIndex[0]
 route add -p 192.168.0.0 mask 255.255.0.0 0.0.0.0 if $PanIndex[0]
-
+# These will just kill microsoft in general? I dunno, this is why you should read your code. 
 #Microsoft defender for Endpoint IP ranges. (Source: Talos + Procmon)
 route add -p 40.0.0.0 mask 255.0.0.0.0 0.0.0.0 if $InterfaceIndex[0]
 route add -p 52.160.0.0 mask 255.224.0.0 0.0.0.0 if $InterfaceIndex[0]
