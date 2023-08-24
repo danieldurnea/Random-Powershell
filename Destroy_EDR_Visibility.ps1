@@ -54,3 +54,4 @@ $IPs | ForEach-Object{
 }
             
 
+#This is to check if you read the crap you run. But disable IPv6 if you want to kill Microsoft, it uses IPv6 as a fallback.
