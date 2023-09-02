@@ -7,6 +7,9 @@
 
 #CS IP Links https://www.dell.com/support/kbdoc/en-lv/000177899/crowdstrike-falcon-sensor-system-requirements
 #CS IP Links https://github.com/simonsigre/crowdstrike_falcon-ipaddresses/blob/master/cs_falcon_commercial_cloud
+#Cortex XDR Links:https://docs-cortex.paloaltonetworks.com/r/Cortex-XDR/Cortex-XDR-Pro-Administrator-Guide/Resources-Required-to-Enable-Access-to-XDR-Collectors
+#There are a lot of XDR links and i'm too lazy to list them all manually.
+
 
 $target_URLs = @("ts01-gyr-maverick.cloudsink.net", "ts01-b.cloudsink.net", "lfodown01-gyr-maverick.cloudsink.net", "lfodown01-b.cloudsink.net")
 $Regex_Lookups = @()#Fill this in with sites you want to block.
