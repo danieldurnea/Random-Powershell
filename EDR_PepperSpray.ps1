@@ -11,6 +11,9 @@
 #There are a lot of XDR links and i'm too lazy to list them all manually.
 
 
+#BOTH CS & MICROSOFT HAVE INFORMED ME THIS WILL NOT BE FIXED.
+
+
 $target_URLs = @("ts01-gyr-maverick.cloudsink.net", "ts01-b.cloudsink.net", "lfodown01-gyr-maverick.cloudsink.net", "lfodown01-b.cloudsink.net")
 $Regex_Lookups = @()#Fill this in with sites you want to block.
 $IPs =@() #fill this with IPs you know you want to block.
